@@ -1,0 +1,20 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Pokalbeliai</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+        socket.on('chat message', function (msg) {
+            document.getElementById('zinios').innerHTML = document.getElementById('zinios').innerHTML  + '<br/>' + msg;
+        });
+    </script>
+</head>
+<body>
+    <div id="zinios">aaa</div>
+    <br />
+    <input width="300"  id="zinute"/>
+<button onclick="socket.emit('chat message', document.getElementById('zinute').value); document.getElementById('zinute').value = ''; this.focus();">Send</button>
+</body>
+</html>

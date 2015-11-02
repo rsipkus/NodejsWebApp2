@@ -1,11 +1,28 @@
 ﻿var app = require('express')();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var port = process.env.PORT || 80;
 
 app.get('/', function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World from the git hub baby express!\n');
+    res.sendFile(__dirname + '/index.html');
 });
+
+io.on('connection', function (socket) {
+    console.log('a user connected');
+    
+    // When user disconnects
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
+    
+
+    //When user sends message, everone gets it except him
+    socket.on('chat message', function (msg) {
+        io.emit('chat message', msg);
+        console.log('emmiting message ' + msg);
+    });
+});
+
 
 http.listen(port, function () {
     console.log('listening on *:80');
