@@ -7,5 +7,7 @@
     "name": "Rimantas",
     "email": ""
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }
